@@ -1,0 +1,94 @@
+﻿@page "/"
+@using System.Diagnostics
+@using Parser
+@using Parser.Parsers
+@using Web.Components.InputContainer
+@using Web.Components.TextContainer
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Home</PageTitle>
+
+<div id="container">
+    
+    <section id="text-area">
+        @* User Input Container *@
+        <TextContainer Config="@(new TextContainerConfig( false,"C#"))" @ref="inputContainer" />
+        @* Generated ts output *@
+        <TextContainer Config="@(new TextContainerConfig( true,"TS"))" />
+    </section>
+    
+    <div>
+        
+    </div>
+    
+</div>
+
+@code {
+
+    string _output = "";
+    DotNetObjectReference<Home>? _dotnetRef;
+    
+    TextContainer inputContainer;
+    
+    readonly ParseService _parseServiceService = new();
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _dotnetRef = DotNetObjectReference.Create(this);
+            await inputContainer.InitJSInterop(_dotnetRef);
+            return;
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    [JSInvokable]
+    public async void OnInputTextChangedJS(string input)
+    {
+        try
+        {
+            _output = await _parseServiceService.ParseText(input,new Config
+            {
+                autoFormat = false,
+                parser = "Typescript"
+            });
+            
+        }
+        catch (Exception e)
+        {
+            _output = "error";
+            throw;
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        _dotnetRef?.Dispose();
+    }
+}
+
+
+<style>
+    #container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    #text-area {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        padding-inline: 6px;
+    }
+    
+</style>

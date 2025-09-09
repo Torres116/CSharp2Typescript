@@ -1,0 +1,7 @@
+﻿services:
+  blazor:
+    image: blazor
+    build:
+      context: .
+      dockerfile: Blazor/Dockerfile
+
