@@ -8,22 +8,21 @@ public class ParseService
 {
     Config _config;
     
-    public async Task<string> ParseText(string text,Config cfg)
+    public string ParseText(string text,Config cfg)
     {
         _config = cfg;
-        await Parse(text);
-        return "not implemented lol"; 
+        return Parse(text);
     }
 
-    async Task<string> Parse(string text)
+    string Parse(string text)
     {
         try
         {
             var lexer = new Lexer();
             var parser = ParserFactory.GetParser(_config.parser);
             var tokens = lexer.Tokenize(text);
-            var result = await parser.Parse(tokens);
-            return result;
+            var parsedResult = parser.Parse(tokens);
+            return parsedResult.Result;
         }
         catch (Exception e)
         {
@@ -31,7 +30,6 @@ public class ParseService
             throw;
         }
 
-        return "";
     }
 
     

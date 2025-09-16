@@ -14,7 +14,7 @@
         @* User Input Container *@
         <TextContainer Config="@(new TextContainerConfig( false,"C#"))" @ref="inputContainer" />
         @* Generated ts output *@
-        <TextContainer Config="@(new TextContainerConfig( true,"TS"))" />
+        <TextContainer Config="@(new TextContainerConfig( true,"TS"))" @ref="outputContainer"/>
     </section>
     
     <div>
@@ -29,6 +29,7 @@
     DotNetObjectReference<Home>? _dotnetRef;
     
     TextContainer inputContainer;
+    TextContainer outputContainer;
     
     readonly ParseService _parseServiceService = new();
     
@@ -38,6 +39,7 @@
         {
             _dotnetRef = DotNetObjectReference.Create(this);
             await inputContainer.InitJSInterop(_dotnetRef);
+            await outputContainer.InitJSInterop(_dotnetRef);
             return;
         }
 
@@ -49,12 +51,14 @@
     {
         try
         {
-            _output = await _parseServiceService.ParseText(input,new Config
+            _output = _parseServiceService.ParseText(input,new Config
             {
                 autoFormat = false,
                 parser = "Typescript"
             });
-            
+
+            Console.WriteLine("output: " + _output);
+            await outputContainer.ChangeTextArea(_output);
         }
         catch (Exception e)
         {

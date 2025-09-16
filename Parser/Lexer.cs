@@ -1,56 +1,91 @@
-namespace Parser.Token;
+namespace Parser;
 
 internal class Lexer
 {
+    readonly string[] dataTypes =
+    [
+        "class",
+        "struct",
+        "interface",
+        "enum"
+    ];
 
-    public List<Token> Tokenize(string input)
+    readonly string[] ignoredKeywords =
+    [
+        "public",
+        "private",
+        "protected",
+        "internal",
+        "async"
+    ];
+
+    readonly string[] tokenType =
+    [
+        "class",
+        "interface",
+        "record",
+        "string",
+        "bool",
+        "int",
+        "float",
+        "double",
+        "char",
+        "datetime",
+        "timespan"
+    ];
+    
+
+    public List<Token.Token> Tokenize(string input)
     {
-        var result = new List<Token>();
-        var separators = new[]{";","\n"," "};
-        var newInput = input.Split(separators,StringSplitOptions.RemoveEmptyEntries);
+        var result = new List<Token.Token>();
+        var separators = new[]{"\n"};
+        var formattedInput = input.Split(separators, StringSplitOptions.RemoveEmptyEntries)
+            .Select(c => c.Replace(";", "").Replace("\n", "").Replace("\t", ""))
+            .ToArray();
         
-        foreach (var item in newInput)
+        try
         {
-            if (int.TryParse(item, out _))
+            for (var i = 0; i < formattedInput.Length; i++)
             {
-                result.Add(new Token
-                {
-                    Identifier = item,
-                    Type = TokenType.Number,
-                    index = result.Count + 1
-                });
-            }
-            else if(item.StartsWith("\"") && item.EndsWith("\""))
-            {
-                result.Add(new()
-                {
-                    Identifier = item.Substring(1, item.Length - 2),
-                    Type = TokenType.String,
-                    index = result.Count + 1
-                });
+                var token = new Token.Token();
+                var current = formattedInput[i].Split([" "], StringSplitOptions.RemoveEmptyEntries)
+                    .Where(c => !ignoredKeywords.Contains(c))
+                    .Select(c => c.Replace("{","").Replace("}",""))
+                    .ToArray();
                 
-            }
-            else if (item is "{" or "}")
-            {
-                result.Add(new()
+                for (var j = 0; j < current.Length; j++)
                 {
-                    Identifier = item,
-                    Type = item == "{" ? TokenType.BraceOpen : TokenType.BraceClose,
-                    index = 0
-                });
-            }
-            else
-            {
-                result.Add(new()
-                {
-                    Identifier = item,
-                    Type = TokenType.Identifier,
-                    index = result.Count + 1
-                });
-            }
-            
-            // Console.WriteLine(item);
+                    
+                    if (string.IsNullOrWhiteSpace(current[j]) || current[j].StartsWith("//"))
+                        break;
+                        
+                    if (tokenType.Contains(current[j].ToLower()))
+                    {
+                        token.Type = current[j];
+                        continue;
+                    } 
+                    
+                    if (token.Type == null && current.Length - 1 > j )
+                        token.Type = current[j];
+                    
+                    if (dataTypes.Contains(current[j]))
+                        continue;
 
+                    if (current[j] == "get" || current[j] == "set")
+                        continue;
+                    
+                    token.Identifier = current[j];
+                }
+                
+                if (token is { Type: not null, Identifier: not null })
+                    result.Add(token);
+                // Console.WriteLine(token.Identifier + " " + token.Type );
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
         
         return result;

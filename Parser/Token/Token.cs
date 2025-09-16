@@ -2,19 +2,7 @@ namespace Parser.Token;
 
 public class Token
 {
-    public string Identifier;
-    public TokenType Type;
+    public string? Identifier = null;
+    public string? Type = null;
     public int index;
-}
-
-public enum TokenType
-{
-    Identifier,
-    String,
-    Number,
-    Boolean,
-    BraceOpen,
-    BraceClose,
-    Semicolon,
-    Unknown
 }
