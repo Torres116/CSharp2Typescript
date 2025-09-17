@@ -39,8 +39,6 @@
         {
             _dotnetRef = DotNetObjectReference.Create(this);
             await inputContainer.InitJSInterop(_dotnetRef);
-            await outputContainer.InitJSInterop(_dotnetRef);
-            return;
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -62,8 +60,7 @@
         }
         catch (Exception e)
         {
-            _output = "error";
-            throw;
+            _output = "";
         }
         finally
         {
