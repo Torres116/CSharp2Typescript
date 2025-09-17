@@ -23,9 +23,9 @@ public class TypescriptParser : IParser
         var sb = new StringBuilder();
         foreach (var token in tokens)
         {
-            sb.Append(token.Type);
-            sb.Append(":");
             sb.Append(token.Identifier);
+            sb.Append(":");
+            sb.Append(token.Type);
             sb.Append(";");
             sb.AppendLine();
         }

@@ -2,7 +2,7 @@ using Parser.Token;
 
 namespace Parser.Context;
 
-public class TypescriptTokenGenerator : ParserTokenGenerator
+public class TypescriptTokenGenerator : ITokenGenerator
 {
     private readonly Dictionary<string, string> types = new()
     {
@@ -36,16 +36,16 @@ public class TypescriptTokenGenerator : ParserTokenGenerator
             Type = GetType(token)
         };
 
-        if (_t.Array)
-           _t.Type = FormatIfArray(_t.Type);
-        
+        FormatIfArray(_t);
+        FormatIfNullable(_t);
+
         return _t;
     }
 
     private string GetType(Token.Token token)
     {
         var tokenType = token.Type!;
-        tokenType = tokenType.Replace("[]", "");
+        tokenType = tokenType.Replace("[]", "").Replace("?","");
         return types.GetValueOrDefault(tokenType.ToLower(), tokenType);
     }
 
@@ -65,11 +65,19 @@ public class TypescriptTokenGenerator : ParserTokenGenerator
         return false;
     }
 
-    string FormatIfArray(string token)
+    private static void FormatIfNullable(TypescriptToken token)
     {
-        token = token.Replace("List", "").Replace("<", "").Replace(">", "").Replace("[]","");
-        token += "[]";
-        return token;
+        if (token is { Nullable: false })
+            return;
+        
+        token.Type = token.Type.Replace("?", "");
+        token.Identifier += "?";
+    }
+
+    private static void FormatIfArray(TypescriptToken token)
+    {
+        token.Type = token.Type.Replace("List", "").Replace("<", "").Replace(">", "").Replace("[]","");
+        token.Type += "[]";
     }
     
 }
