@@ -34,7 +34,7 @@ internal sealed class Lexer
         "double",
         "char",
         "datetime",
-        "timespan",
+        "timespan"
     ];
 
 
@@ -67,14 +67,13 @@ internal sealed class Lexer
                 {
                     var current = currentLine[j];
                     
-                    // TODO: Change this
                     if (_declarationKeywords.Contains(current.ToLower()))
                     {
-                        j += 1;
-                        token.Type = "class";
-                        token.Identifier = currentLine[j];
+                        var next = currentLine[j + 1];
+                        token.Type = current ;
+                        token.Identifier = next;
                         token.IsTypeDeclaration = true;
-                        continue;
+                        break;
                     }
                     
                     if (string.IsNullOrWhiteSpace(current) || current.StartsWith("//"))

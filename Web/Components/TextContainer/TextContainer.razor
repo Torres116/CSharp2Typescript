@@ -1,17 +1,18 @@
 @inject IJSRuntime JS
 <link rel="stylesheet" href="css/Default.css"/>
 
-<div id="container">
+<div class="text_container">
+    
     <div class="c-opt">
         <h2>
             @Config.Title
         </h2>
-        
-        <button class="actionbutton">
-            <img src="svg/copy.svg" alt="copy" />
+
+        <button class="action-button">
+            <img src="svg/copy.svg" alt="copy"/>
         </button>
     </div>
-    
+
     <div class="text-container">
         <textarea class="content"
         readonly="@(Config.IsReadOnly)"
@@ -27,11 +28,10 @@
 
 <style>
     
-    #container{
-        width: 700px;
-        height: 850px;
+    .text_container{
+        width: 500px;
+        height: 550px;
         display: block;
-        padding: 3px;
     }
     
     .text-container{
@@ -64,14 +64,16 @@
     
     .c-opt {
         width: 100%;
-        padding: 7px;
+        height: 40px;
+        padding: 0 7px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
+        align-items: center;
     }
     
-    .actionbutton {
+    .action-button {
         width: 25px;
         height: 25px;
         display: flex;
@@ -82,7 +84,7 @@
         cursor: pointer;
     }
     
-    .actionbutton:hover {
+    .action-button:hover {
         scale: 0.9;
     }
    

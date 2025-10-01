@@ -1,7 +1,6 @@
 ﻿@page "/"
-@using System.Diagnostics
 @using Parser
-@using Parser.Parsers
+@using Web.Components.FormatOptions
 @using Web.Components.InputContainer
 @using Web.Components.TextContainer
 @inject IJSRuntime JSRuntime
@@ -13,15 +12,47 @@
     <section id="text-area">
         @* User Input Container *@
         <TextContainer Config="@(new TextContainerConfig( false,"C#"))" @ref="inputContainer" />
-        @* Generated ts output *@
+        @* Parsed  output *@
         <TextContainer Config="@(new TextContainerConfig( true,"TS"))" @ref="outputContainer"/>
     </section>
     
-    <div>
-        
-    </div>
+    <section id="options">
+        <FormatOptions/>
+    </section>
     
 </div>
+
+
+<style>
+    #container {
+        width: 100%;
+        height: 100vh;
+        overflow-x: clip;
+        display: flex;
+        flex-direction: row;
+    }
+    
+    #text-area {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        margin-top: 20px;
+        justify-content: center;
+        align-items: start;
+    }
+    
+    #options {
+        width: 20%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+</style>
 
 @code {
 
@@ -74,22 +105,3 @@
     }
 }
 
-
-<style>
-    #container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-    
-    #text-area {
-        width: 80%;
-        height: 100%;
-        display: flex;
-        flex-direction: row;
-        padding-inline: 6px;
-    }
-    
-</style>
