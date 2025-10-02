@@ -1,16 +1,15 @@
 using System.Text;
-using Parser.Context;
-using Parser.Formatter;
+using Formatter.Formatter;
 using Parser.Interfaces;
-using Parser.Token;
 using Parser.TokenGenerator;
+using TokenGenerator;
 
 namespace Parser.Parsers;
 
 public sealed class TypescriptParser : IParser
 {
 
-    public Task<string> Parse(List<Token.Token> tokens)
+    public Task<string> Parse(List<Token> tokens)
     {
         // if (tokens.Count is 0 || !tokens.Any(c => c.IsTypeDeclaration))
         //     return Task.FromResult(string.Empty);

@@ -27,4 +27,13 @@
       <ProjectReference Include="..\Parser\Parser.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Components\TextContainer\TextContainer.cs">
+        <DependentUpon>TextContainer.razor</DependentUpon>
+      </Compile>
+      <Compile Update="Components\buttons\DropdownOption.cs">
+        <DependentUpon>Dropdown.razor</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

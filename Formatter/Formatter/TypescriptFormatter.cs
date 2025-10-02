@@ -1,5 +1,5 @@
 
-namespace Parser.Formatter;
+namespace Formatter.Formatter;
 
 public class TypescriptFormatter(FormatOptions formatOptions) 
 {

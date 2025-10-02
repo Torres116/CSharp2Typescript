@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using TokenGenerator;
 
 namespace Parser;
 
@@ -38,9 +39,9 @@ internal sealed class Lexer
     ];
 
 
-    public List<Token.Token> Tokenize(string input)
+    public List<Token> Tokenize(string input)
     {
-        var result = new List<Token.Token>();
+        var result = new List<Token>();
         var separators = new[]{"\n"};
         var formattedInput = input.Split(separators, StringSplitOptions.RemoveEmptyEntries)
             .Select(c => c.Replace(";", "").Replace("\n", "").Replace("\t", ""))
@@ -57,7 +58,7 @@ internal sealed class Lexer
         {
             for (var i = 0; i < formattedInput.Length; i++)
             {
-                var token = new Token.Token();
+                var token = new Token();
                 var currentLine = formattedInput[i].Split([" "], StringSplitOptions.RemoveEmptyEntries)
                     .Where(c => !ignoredKeywords.Contains(c))
                     .Select(c => c.Replace("{","").Replace("}",""))

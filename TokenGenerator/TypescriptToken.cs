@@ -1,4 +1,4 @@
-namespace Parser.Token;
+namespace TokenGenerator;
 
 public class TypescriptToken
 {

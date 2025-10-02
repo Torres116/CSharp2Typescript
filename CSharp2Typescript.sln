@@ -7,11 +7,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser", "Parser\Parser.csproj", "{08616671-29A8-4AF8-B68E-86A1515D1EC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8C31EA5-1367-4D69-A7E1-1D6CF9754A11}"
-	ProjectSection(SolutionItems) = preProject
-		compose.yaml = compose.yaml
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{C25E75D6-92D5-4217-9D35-3E1029CF1BD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formatter", "Formatter\Formatter.csproj", "{12C06373-A98B-482C-ADAE-352B2267A713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenGenerator", "TokenGenerator\TokenGenerator.csproj", "{C6B6273C-23EF-4122-8CA5-E44B84AB4970}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +22,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{08616671-29A8-4AF8-B68E-86A1515D1EC0} = {2A56A070-D7C3-4C11-99A1-1C28C035ACE9}
 		{C25E75D6-92D5-4217-9D35-3E1029CF1BD5} = {2A56A070-D7C3-4C11-99A1-1C28C035ACE9}
+		{12C06373-A98B-482C-ADAE-352B2267A713} = {2A56A070-D7C3-4C11-99A1-1C28C035ACE9}
+		{C6B6273C-23EF-4122-8CA5-E44B84AB4970} = {2A56A070-D7C3-4C11-99A1-1C28C035ACE9}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{08616671-29A8-4AF8-B68E-86A1515D1EC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -31,5 +34,13 @@ Global
 		{C25E75D6-92D5-4217-9D35-3E1029CF1BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C25E75D6-92D5-4217-9D35-3E1029CF1BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C25E75D6-92D5-4217-9D35-3E1029CF1BD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C06373-A98B-482C-ADAE-352B2267A713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C06373-A98B-482C-ADAE-352B2267A713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C06373-A98B-482C-ADAE-352B2267A713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C06373-A98B-482C-ADAE-352B2267A713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6B6273C-23EF-4122-8CA5-E44B84AB4970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B6273C-23EF-4122-8CA5-E44B84AB4970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B6273C-23EF-4122-8CA5-E44B84AB4970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B6273C-23EF-4122-8CA5-E44B84AB4970}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

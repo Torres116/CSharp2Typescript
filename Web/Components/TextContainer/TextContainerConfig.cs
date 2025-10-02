@@ -1,4 +1,4 @@
-namespace Web.Components.InputContainer;
+namespace Web.Components.TextContainer;
 
 public sealed class TextContainerConfig(
     bool isReadOnly,

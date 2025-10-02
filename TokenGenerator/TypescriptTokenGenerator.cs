@@ -1,15 +1,14 @@
-using Parser.Context;
-using Parser.Interfaces;
-using Parser.Token;
-using Parser.TokenGenerator.strategies;
+using TokenGenerator;
+using TokenGenerator.handlers;
+using TokenGenerator.interfaces;
 
 namespace Parser.TokenGenerator;
 
 public class TypescriptTokenGenerator : ITokenGenerator
 {
-    private List<ITokenTypeHandler> _typeHandlers;
+    private List<ITokenTypeHandler>? _typeHandlers;
 
-    public TypescriptToken InterpretToken(Token.Token token)
+    public TypescriptToken InterpretToken(Token token)
     {
 
         _typeHandlers = new List<ITokenTypeHandler>

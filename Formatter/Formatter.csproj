@@ -4,12 +4,11 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <RootNamespace>Formatter</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Formatter\Formatter.csproj" />
-      <ProjectReference Include="..\TokenGenerator\TokenGenerator.csproj" />
+      <Folder Include="interfaces\" />
     </ItemGroup>
 
 </Project>
