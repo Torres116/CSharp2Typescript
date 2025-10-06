@@ -1,0 +1,53 @@
+<link href="css/dropdown.css" rel="stylesheet" />
+
+
+<div class="dropdown">
+    
+    <h1 class="dropdownTitle">@Title</h1>
+    
+    <div class="dropdownContainer">
+
+        <button class="dropdownButton" @onclick="ToggleDropdown">
+            <h2 class="dropdownTitle">@Options[currentIndex].Value</h2>
+            <span class="dropdownArrow @(IsOpen ? "open" : "")">▼</span>
+        </button>
+
+        <div class="dropdownContent @(IsOpen ? "show" : "")">
+            @foreach (var option in Options)
+            {
+                <div class="dropdownOption" @onclick="() => OnOptionSelected(option)">
+                    @option.Value
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public List<DropdownOption> Options { get; set; } = [];
+    [Parameter] public EventCallback<DropdownOption> OnValueChange { get; set; }
+
+    private int currentIndex;
+    private bool IsOpen;
+
+    private void ToggleDropdown()
+    {
+        IsOpen = !IsOpen;
+    }
+
+    private async Task OnOptionSelected(DropdownOption option)
+    {
+        if (OnValueChange.HasDelegate)
+        {
+            currentIndex = option.Index;
+            await OnValueChange.InvokeAsync(option);
+            StateHasChanged();
+        }
+        
+        IsOpen = false;
+    }
+
+}

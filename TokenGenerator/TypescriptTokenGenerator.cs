@@ -1,26 +1,32 @@
-using TokenGenerator;
 using TokenGenerator.handlers;
 using TokenGenerator.interfaces;
 
-namespace Parser.TokenGenerator;
+namespace TokenGenerator;
 
 public class TypescriptTokenGenerator : ITokenGenerator
 {
     private List<ITokenTypeHandler>? _typeHandlers;
 
-    public TypescriptToken InterpretToken(Token token)
+    public TypescriptTokenGenerator()
     {
+        InitTypeHandlers();
+    }
 
+    private void InitTypeHandlers()
+    {
         _typeHandlers = new List<ITokenTypeHandler>
         {
-            new PrimitiveConversionStrategy(),
-            new NullableTypeConversionStrategy(this),
-            new DictionaryTypeConversionStrategy(this),
-            new ListTypeConversionStrategy(this)
+            new PrimitiveConversionHandler(),
+            new NullableTypeConversionHandler(this),
+            new DictionaryTypeConversionHandler(this),
+            new ListTypeConversionHandler(this)
         };
-        
-        var convertedType = Convert(token.Type);
-        
+    }
+
+    public TypescriptToken InterpretToken(Token token)
+    {
+        var convertedType = Convert(token.Type ?? string.Empty);
+
         var _t = new TypescriptToken
         {
             Type = convertedType,
@@ -40,6 +46,5 @@ public class TypescriptTokenGenerator : ITokenGenerator
 
         return type;
     }
-    
     
 }

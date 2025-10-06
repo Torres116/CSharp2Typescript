@@ -1,7 +1,6 @@
 namespace TokenGenerator;
 
-public class TypescriptToken
+public class TypescriptToken : Token
 {
-    public string Identifier { get; set; }
-    public string Type { get; set; }
+
 }

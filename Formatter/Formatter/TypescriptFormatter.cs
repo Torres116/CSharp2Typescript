@@ -1,23 +1,59 @@
 
+using System.Text;
+using Formatter.interfaces;
+using Formatter.Options;
+
 namespace Formatter.Formatter;
 
-public class TypescriptFormatter(FormatOptions formatOptions) 
+public class TypescriptFormatter : IFormatter
 {
-    public string GetIdent()
+    private TypescriptFormatOptions TypescriptFormatOptions { get; } = TypescriptFormatOptions.GetInstance;
+    private StringBuilder sb = new();
+    
+    private string GetTypeDeclaration()
     {
-        var ident = new string(' ', formatOptions.IdentSize * formatOptions.IdentLevel);
+        return "";
+    }
+
+    private string GetIdent()
+    {
+        var ident = new string(' ', TypescriptFormatOptions.IdentSize * TypescriptFormatOptions.IdentLevel);
         return ident;
     }
 
-    public string GetTab()
+    private string GetTab()
     {
-        var tab = new string(' ', formatOptions.TabSize);
+        var tab = new string(' ', TypescriptFormatOptions.TabSize);
         return tab;
     }
 
-    public static string FormatVar(string text)
+    public void FormatTypeDeclaration(string identifier)
     {
-        return text;
+        var declaration = $"interface {identifier} " + "{" ;
+        sb.Append(declaration);
+        sb.AppendLine();
     }
     
+    public void FormatLine(string type, string ident)
+    {
+
+        sb.Append(GetIdent());
+        sb.Append(ident);
+        sb.Append(":");
+        sb.Append(GetTab());
+        sb.Append(type);
+        sb.Append(";");
+        sb.AppendLine();
+    }
+
+    private void EndTypeDeclaration()
+    {
+        sb.Append("}");
+    }
+    
+    public string GetResult()
+    {
+        EndTypeDeclaration();
+        return sb.ToString();
+    }
 }

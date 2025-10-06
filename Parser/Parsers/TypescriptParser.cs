@@ -1,7 +1,6 @@
 using System.Text;
 using Formatter.Formatter;
 using Parser.Interfaces;
-using Parser.TokenGenerator;
 using TokenGenerator;
 
 namespace Parser.Parsers;
@@ -24,36 +23,21 @@ public sealed class TypescriptParser : IParser
 
     string Build(List<TypescriptToken> tokens)
     {
-        var sb = new StringBuilder();
-        var fo = new FormatOptions();
-        var ft = new TypescriptFormatter(fo);
+        var ft = new TypescriptFormatter();
         
         foreach (var token in tokens)
         {
             if (token.Type == "class")
             {
-                var typeStructure = $"interface {token.Identifier} " + "{" ;
-                sb.Append(typeStructure);
-                sb.AppendLine();
+                ft.FormatTypeDeclaration(token.Identifier!);
                 continue;
             }
             
-            
-            var ident = ft.GetIdent();
-            var tab = ft.GetTab();
-
-            sb.Append(ident);
-            sb.Append(token.Identifier);
-            sb.Append(":");
-            sb.Append(tab);
-            sb.Append(token.Type);
-            sb.Append(";");
-            sb.AppendLine();
+            ft.FormatLine(token.Type!, token.Identifier!);
         }
 
-        sb.Append("}");
-        
-        return sb.ToString();
+
+        return ft.GetResult();
     }
        
 }

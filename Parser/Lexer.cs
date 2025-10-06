@@ -15,7 +15,7 @@ internal sealed class Lexer
         "async"
     ];
 
-    private readonly string[] _declarationKeywords =
+    readonly string[] _declarationKeywords =
     [
         "class",
         "struct",
@@ -48,11 +48,9 @@ internal sealed class Lexer
             .ToArray();
         
         // Remove generic whitespaces
-        var genericTypePattern = @"(?<=<[^>]*)\s+(?=[^<]*>)";
-        for (int k = 0; k < formattedInput.Length; k++)
-        {
+        const string genericTypePattern = @"(?<=<[^>]*)\s+(?=[^<]*>)";
+        for (var k = 0; k < formattedInput.Length; k++)
             formattedInput[k] = Regex.Replace(formattedInput[k], genericTypePattern, "");
-        }
         
         try
         {
@@ -73,7 +71,6 @@ internal sealed class Lexer
                         var next = currentLine[j + 1];
                         token.Type = current ;
                         token.Identifier = next;
-                        token.IsTypeDeclaration = true;
                         break;
                     }
                     
@@ -92,9 +89,8 @@ internal sealed class Lexer
                     token.Identifier = current;
                 }
                 
-                if (token is { Type: not null, Identifier: not null })
+                if (token is not {Type: null,Identifier: null})
                     result.Add(token);
-                
             }
         }
         catch (Exception e)

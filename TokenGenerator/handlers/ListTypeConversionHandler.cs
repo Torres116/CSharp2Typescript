@@ -3,7 +3,7 @@ using TokenGenerator.Validation;
 
 namespace TokenGenerator.handlers;
 
-public class ListTypeConversionStrategy(ITokenGenerator generator) : ITokenTypeHandler
+public class ListTypeConversionHandler(ITokenGenerator generator) : ITokenTypeHandler
 {
     public bool CanConvert(string token)
     {

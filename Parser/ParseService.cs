@@ -12,7 +12,7 @@ public sealed class ParseService
         return Parse(text);
     }
 
-    string Parse(string text)
+    private string Parse(string text)
     {
         try
         {
@@ -30,5 +30,4 @@ public sealed class ParseService
 
     }
 
-    
 }

@@ -3,7 +3,7 @@ using TokenGenerator.Validation;
 
 namespace TokenGenerator.handlers;
 
-public class DictionaryTypeConversionStrategy(ITokenGenerator generator) : ITokenTypeHandler
+public class DictionaryTypeConversionHandler(ITokenGenerator generator) : ITokenTypeHandler
 {
     public bool CanConvert(string token)
     {

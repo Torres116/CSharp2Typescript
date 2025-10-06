@@ -2,7 +2,7 @@ using TokenGenerator.interfaces;
 
 namespace TokenGenerator.handlers;
 
-public class PrimitiveConversionStrategy : ITokenTypeHandler
+public class PrimitiveConversionHandler : ITokenTypeHandler
 {
     private static readonly Dictionary<string, string> Types = new()
     {
@@ -27,7 +27,7 @@ public class PrimitiveConversionStrategy : ITokenTypeHandler
 
     public bool CanConvert(string token)
     {
-        return !token.Contains("<") && !token.Contains("[") && !token.Contains("?");
+        return !token.Contains('<') && !token.Contains('[') && !token.Contains('?');
     }
 
     public string Convert(string token)

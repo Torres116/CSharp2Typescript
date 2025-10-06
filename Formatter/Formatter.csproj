@@ -7,8 +7,4 @@
         <RootNamespace>Formatter</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="interfaces\" />
-    </ItemGroup>
-
 </Project>
