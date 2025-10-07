@@ -1,7 +1,4 @@
 
 namespace Parser;
 
-public class Config
-{
-    public string parser;
-}
+public record Config(string parser);

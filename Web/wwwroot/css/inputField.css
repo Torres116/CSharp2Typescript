@@ -1,6 +1,7 @@
 *{
     color: #FFF;
     background-color: transparent;
+    font-size: 16px;
 }
 
 .inputFieldContainer {
@@ -15,14 +16,12 @@
 .dropdownTitle {
     margin: 0;
     color: var(--mainFontColor);
-    font-size: 16px;
     font-weight: normal;
 }
 
 .inputField {
     margin: 0;
     color: var(--mainFontColor);
-    font-size: 16px;
     width: 38px;
     height: 32px;
     font-weight: normal;
