@@ -1,4 +1,4 @@
-namespace Formatter.options.Typescript;
+namespace Formatter.Options.Enums;
 
 public enum TypeDeclaration
 {

@@ -38,7 +38,7 @@ public class TypescriptTokenGenerator : ITokenGenerator
 
     public string Convert(string type)
     {
-        foreach (var _strategy in _typeHandlers)
+        foreach (var _strategy in _typeHandlers ?? [])
         {
             if (_strategy.CanConvert(type))
                type = _strategy.Convert(type);
