@@ -2,6 +2,6 @@ namespace Formatter.interfaces;
 
 public interface IFormatter
 {
-    void FormatLine(string type, string ident);
+    void FormatLine(string identifier, string type);
     void FormatTypeDeclaration(string identifier);
 }

@@ -9,7 +9,7 @@ namespace Formatter.Formatter;
 
 public class TypescriptFormatter : IFormatter
 {
-    private IFormatOptions _formatOptions { get; } = TypescriptFormatOptions.GetInstance;
+    private FormatOptions _formatOptions { get; } = FormatOptions.GetInstance;
     private StringBuilder sb { get; } = new();
 
     private string GetTypeDeclaration()

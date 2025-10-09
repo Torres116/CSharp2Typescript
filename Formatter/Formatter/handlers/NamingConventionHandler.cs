@@ -21,6 +21,7 @@ public static class NamingConventionHandler
     public static string ToSnakeCase(string str)
     {
         string result = "";
+        str = str.Replace("_", "");
         for (var i = 0; i < str.Length; i++)
         {
             var c = str[i];

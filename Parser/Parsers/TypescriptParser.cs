@@ -25,6 +25,7 @@ public sealed class TypescriptParser : IParser
     {
         var ft = new TypescriptFormatter();
         
+        //TODO: Change this
         foreach (var token in tokens)
         {
             if (token.Type == "class")
@@ -33,7 +34,7 @@ public sealed class TypescriptParser : IParser
                 continue;
             }
             
-            ft.FormatLine(token.Type!, token.Identifier!);
+            ft.FormatLine(token.Identifier!, token.Type!);
         }
 
 
