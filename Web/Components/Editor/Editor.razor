@@ -1,5 +1,4 @@
 @using Web.Components.TextContainer
-@using Web.wwwroot.svg
 @inject IJSRuntime JS
 
 
@@ -9,7 +8,7 @@
     <div class="w-full h-14 p-4 flex items-center justify-between border-b border-white/10">
         <div class="flex gap-2 items-center">
             <img src="@Config.LogoPath" alt="Logo" class="h-6 w-6"/>
-            <h1 class="text-lg">@Config.Title</h1>
+            <h1 class="text-lg text-white">@Config.Title</h1>
         </div>
 
         <div class="flex gap-2">
@@ -50,13 +49,13 @@
                 <pre class="w-full h-full p-0 m-0">
                     <code
                         class="language-typescript bg-transparent h-full text-md xl:text-lg
-                            whitespace-pre font-mono">@Text</code>
+                            whitespace-pre">@Text</code>
                 </pre>
             </div>
         }
         else
         {
-            <textarea class="w-full h-full p-2 bg-transparent text-white/90 font-mono text-sm xl:text-lg
+            <textarea class="w-full h-full p-2 bg-transparent text-white/90 main-font text-sm xl:text-lg
                 resize-none focus:outline-none" id="inputeditor"
                       spellcheck="false"
                       autocapitalize="off"
@@ -76,11 +75,11 @@
 
 <script>
 
-    function CopyText(text) {
+    function copyText(text) {
         navigator.clipboard.writeText(text)
     }
 
-    function PasteText() {
+    function pasteText() {
         return navigator.clipboard.readText()
     }
 
@@ -113,11 +112,14 @@
 
     private async Task PasteTextToArea()
     {
-        var result = await JS.InvokeAsync<string>("PasteText");
+        var result = await JS.InvokeAsync<string>("pasteText");
+        Console.WriteLine($"result:{result}");
         if (string.IsNullOrEmpty(result))
             return;
 
         Text = result;
+        await OnChange.InvokeAsync(result);
+        StateHasChanged();
     }
 
 }

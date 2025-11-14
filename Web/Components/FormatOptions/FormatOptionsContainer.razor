@@ -42,18 +42,22 @@
             <h2 class="text-white/60">Include Nullables</h2>
         </div>
         
+        <div class="flex gap-2 items-center">
+            <Checkbox OnValueChange="OnIncludeOptionalsChanged" InitialState="includeOptionals"/>
+            <h2 class="text-white/60">Include Optionals</h2>
+        </div>
+        
     </div>
 </section>
 
 
 @code {
     
-    // Local copies of the static options
     private bool generateConstructor = FormatOptions.GenerateConstructor;
-    private bool addTypeAnnotations = FormatOptions.AddTypeAnnotations;
     private bool datesAsStrings = FormatOptions.DatesAsStrings;
     private bool includeComments = FormatOptions.IncludeComments;
     private bool includeNullables = FormatOptions.IncludeNullables;
+    private bool includeOptionals = FormatOptions.IncludeOptionals;
 
     [Parameter] public EventCallback UpdateCallback { get; set; }
 
@@ -143,12 +147,6 @@
         Update();
     }
     
-    void OnAddTypeAnnotationsChanged(bool value)
-    {
-        FormatOptions.AddTypeAnnotations = value;
-        Update();
-    }
-    
     void OnDatesAsStringsChanged(bool value)
     {
         FormatOptions.DatesAsStrings = value;
@@ -164,6 +162,12 @@
     void OnIncludeNullablesChanged(bool value)
     {
         FormatOptions.IncludeNullables = value;
+        Update();
+    }
+    
+    void OnIncludeOptionalsChanged(bool value)
+    {
+        FormatOptions.IncludeOptionals = value;
         Update();
     }
     

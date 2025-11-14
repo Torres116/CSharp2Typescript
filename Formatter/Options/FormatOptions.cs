@@ -14,6 +14,6 @@ public static class FormatOptions
     public static bool DatesAsStrings { get; set; } = false;
     public static bool IncludeComments { get; set; } = false;
     public static bool IncludeNullables { get; set; } = true;
-    public static bool SetAllOptionals { get; set; } = false;
+    public static bool IncludeOptionals { get; set; } = false;
 
 }

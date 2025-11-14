@@ -1,4 +1,3 @@
-using System.Text;
 using Formatter.Formatter;
 using Parser.Interfaces;
 using TokenGenerator;

@@ -30,4 +30,10 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="wwwroot\fonts\JetBrainsMono[wght].ttf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

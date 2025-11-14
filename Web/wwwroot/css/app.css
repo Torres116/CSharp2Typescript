@@ -7,6 +7,10 @@
     font-style: normal;
 }
 
-code, pre,textarea {
-    font-family: "jetbrainsMono", monospace;
+code, pre, textarea {
+    font-family: "JetBrainsMono", monospace;
+}
+
+.main-font {
+    font-family: "JetBrainsMono", monospace !important;
 }

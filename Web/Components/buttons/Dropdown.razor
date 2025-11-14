@@ -1,4 +1,3 @@
-@using Web.wwwroot.svg
 @typeparam T
 
 <link href="css/dropdown.css" rel="stylesheet" />
@@ -26,7 +25,7 @@
     <div class="absolute left-0 @(IsOpen ? "border" : "") mt-1 rounded-lg bg-[#1a1a1a] w-full
             overflow-hidden ease-in-out border-white/10 z-50"
          style="max-height: @(IsOpen ? "120px" : "0px")">
-        @foreach (var option in Options.Where(c => c.Index != currentIndex))
+        @foreach (var option in Options)
         {
             <button class="flex flex-row items-center w-full h-10 hover:bg-gray-100/10"
                     @onclick="()=> OnOptionSelected(option)">
