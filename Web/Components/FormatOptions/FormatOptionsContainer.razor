@@ -2,7 +2,8 @@
 @using Formatter.Options.utils
 @using Web.Components.buttons
 
-<section class="flex flex-row lg:flex-col w-full justify-center lg:justify-start lg:max-w-[320px] gap-2 lg:gap-6 relative">
+<section class="flex flex-row lg:flex-col w-full justify-center lg:justify-start md:max-w-[260px] xl:max-w-[300px] 
+gap-2 lg:gap-4 relative">
     
     <div class="p-4 w-full flex flex-col gap-4 border border-white/10 rounded-lg bg-[#222222]">
         <h2 class="text-white">Conversion Format</h2>
@@ -13,13 +14,13 @@
         <Dropdown Options="_namingConvention" Title="Naming Convention"
                   OnValueChange="OnNamingConventionChange" T="string" />
         
-        <div class="flex flex-row flex-wrap lg:flex-nowrap w-full gap-2">
+        <div class="flex flex-row flex-wrap xl:flex-nowrap w-full gap-2">
             <Dropdown Options="_tabSize" Title="Tab Size" T="int" OnValueChange="OnTabSizeChanged"/>
             <Dropdown Options="_identSize" Title="Ident Size" T="int" OnValueChange="OnIdentSizeChanged"/>
         </div>
     </div>
 
-    <div class="p-4 w-full flex flex-col gap-4  border border-white/10 rounded-lg bg-[#222222]">
+    <div class="p-4 w-full flex flex-col gap-4 border border-white/10 rounded-lg bg-[#222222]">
         <h2 class="text-white">Conversion Options</h2>
         
         <div class="flex gap-2 items-center">
@@ -63,16 +64,16 @@
 
     readonly List<DropdownOption<string>> _typeDeclarationOptions = new()
     {
-        new DropdownOption<string>("interface", 0),
+        new DropdownOption<string>("Interface", 0),
         new DropdownOption<string>("type", 1),
-        new DropdownOption<string>("class", 2)
+        new DropdownOption<string>("Class", 2)
     };
 
     readonly List<DropdownOption<string>> _namingConvention = new()
     {
-        new DropdownOption<string>("CamelCase", 0),
+        new DropdownOption<string>("camelCase", 0),
         new DropdownOption<string>("PascalCase", 1),
-        new DropdownOption<string>("SnakeCase", 2)
+        new DropdownOption<string>("snake_case", 2)
     };
     
     readonly List<DropdownOption<int>> _tabSize = new()

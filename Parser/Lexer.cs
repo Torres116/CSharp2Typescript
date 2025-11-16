@@ -56,10 +56,6 @@ internal sealed class Lexer
         for (var k = 0; k < formattedInput.Length; k++)
             formattedInput[k] = Regex.Replace(formattedInput[k], genericTypePattern, "");
         
-        // Remove nullable from types
-        if(!FormatOptions.IncludeNullables)
-           formattedInput = formattedInput.Select(c => c.Replace("?","")).ToArray();
-        
         try
         {
             for (var i = 0; i < formattedInput.Length; i++)
@@ -77,14 +73,22 @@ internal sealed class Lexer
                     if (_declarationKeywords.Contains(current.ToLower()))
                     {
                         var next = currentLine[j + 1];
-                        token.Type = current ;
+                        token.Type = current;
                         token.Identifier = next;
                         break;
                     }
                     
-                    if (string.IsNullOrWhiteSpace(current) || current.StartsWith("//"))
+                    if (string.IsNullOrWhiteSpace(current))
                         break;
-                        
+                    
+                    if(current.StartsWith("//") && j == 0)
+                    {
+                        string comment = string.Join("", currentLine).Replace("//", "");
+                        token.IsComment = true;
+                        token.Comment = comment;
+                        break;
+                    }
+                    
                     if (_tokenType.Contains(current.ToLower()))
                     {
                         token.Type = current;
@@ -97,7 +101,7 @@ internal sealed class Lexer
                     token.Identifier = current;
                 }
                 
-                if (token is not {Type: null,Identifier: null})
+                if (token is not {Type: null,Identifier: null} || token.IsComment)
                     result.Add(token);
             }
         }

@@ -1,4 +1,4 @@
-namespace Web.Components.TextContainer;
+namespace Web.Components.Editor;
 
 public sealed class EditorConfig(
     bool isReadOnly,

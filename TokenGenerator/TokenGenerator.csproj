@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Formatter\Formatter.csproj" />
+    </ItemGroup>
+
 </Project>

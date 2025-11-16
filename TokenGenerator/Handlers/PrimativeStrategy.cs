@@ -1,8 +1,8 @@
 using TokenGenerator.interfaces;
 
-namespace TokenGenerator.handlers;
+namespace TokenGenerator.Handlers.Type;
 
-public class PrimitiveConversionHandler : ITokenTypeHandler
+public class PrimitiveTypeMapper
 {
     private static readonly Dictionary<string, string> Types = new()
     {
@@ -25,13 +25,15 @@ public class PrimitiveConversionHandler : ITokenTypeHandler
         { "object", "any" },
     };
 
-    public bool CanConvert(string token)
+    public void Convert(TypescriptToken token)
     {
-        return !token.Contains('<') && !token.Contains('[') && !token.Contains('?');
-    }
-
-    public string Convert(string token)
-    {
-        return Types.GetValueOrDefault(token.ToLower(), token);
+        var type = token.Type?.Replace("[]", "").Replace("?", "").ToLower();
+        var result = Types!.GetValueOrDefault(type,null);
+        if (result != null && token.Type.Contains("?"))
+        {
+            result += "?";
+            token.Type = result;
+        } else if (result != null)
+            token.Type = result;
     }
 }

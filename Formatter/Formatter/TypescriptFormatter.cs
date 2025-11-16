@@ -1,6 +1,5 @@
 using System.Text;
 using Formatter.Formatter.handlers;
-using Formatter.interfaces;
 using Formatter.Options;
 using Formatter.Options.utils;
 
@@ -75,6 +74,16 @@ public class TypescriptFormatter : IFormatter
         sb.Append(';');
         sb.AppendLine();
     }
+    
+    public void FormatComment(string comment)
+    {
+        Console.WriteLine("A");
+        sb.Append(GetIdent());
+        sb.Append("// ");
+        sb.Append(comment);
+        sb.AppendLine();
+    }
+  
 
     public string GetResult()
     {

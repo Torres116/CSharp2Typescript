@@ -2,9 +2,6 @@
 @using Parser
 @using Web.Components.Editor
 @using Web.Components.FormatOptions
-@using Web.Components.TextContainer
-@inject IJSRuntime JSRuntime
-
 
 <PageTitle>C#2TS</PageTitle>
 
@@ -15,10 +12,10 @@
         @* Containers *@
         <div class="flex flex-row flex-wrap gap-4 flex-grow justify-center w-full p-6">
             @* User Input Container *@
-            <Editor Config="@(new EditorConfig(false, "CSharp", "/svg/CSharp.svg"))" OnChange="@OnInputChange"/>
+            <Editor Config="@(new EditorConfig(false, "CSharp", csIcon))" OnChange="@OnInputChange"/>
             @* Parsed  output *@
-            <Editor @key="output" Config="@(new EditorConfig(true, "Typescript", "/svg/TS.svg"))" Text="@output"/>
-            
+            <Editor @key="output" Config="@(new EditorConfig(true, "Typescript", tsIcon))" Text="@output"/>
+
             <FormatOptionsContainer/>
         </div>
 
@@ -30,14 +27,15 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M5 12l14 0"/><path d="M15 16l4 -4"/>
+                    <path d="M5 12l14 0"/>
+                    <path d="M15 16l4 -4"/>
                     <path d="M15 8l4 4"/>
                 </svg>
             </button>
         </div>
-        
+
     </section>
-    
+
 </div>
 
 @code {
@@ -45,13 +43,16 @@
     string input;
     string output;
 
+    const string tsIcon = "/svg/TS.svg";
+    const string csIcon = "/svg/CSharp.svg";
+
     readonly ParseService _parseServiceService = new();
 
     private void OnInputChange(string text)
     {
         if (string.IsNullOrWhiteSpace(text))
-            return;      
-        
+            return;
+
         input = text;
     }
 
@@ -63,7 +64,7 @@
     private void ParseText()
     {
         var temp = input;
-        
+
         try
         {
             var errors = SyntaxHelper.GetSyntaxErrors(input);
@@ -73,8 +74,8 @@
                 output = tempb;
                 return;
             }
-            
-            output = _parseServiceService.ParseText(input,new Config("typescript"));
+
+            output = _parseServiceService.ParseText(input, new Config());
             StateHasChanged();
         }
         catch (Exception e)
@@ -87,5 +88,6 @@
             StateHasChanged();
         }
     }
+
 }
 

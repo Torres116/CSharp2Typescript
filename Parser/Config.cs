@@ -1,4 +1,4 @@
 
 namespace Parser;
 
-public record Config(string parser);
+public record Config(string parser = "typescript");

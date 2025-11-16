@@ -1,4 +1,4 @@
-namespace Formatter.interfaces;
+namespace Formatter.Formatter;
 
 public interface IFormatter
 {

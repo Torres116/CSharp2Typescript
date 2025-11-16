@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Formatter.Options;
 
 namespace TokenGenerator.Validation;
 
@@ -9,25 +10,35 @@ public static class InputValidator
 {
     public static bool ValidateListFormat(this string text)
     {
-        string pattern = @"\bList\s*<[^<>]+>";
+        const string pattern = @"\bList\s*<[^<>]+>";
         return Regex.IsMatch(text, pattern,RegexOptions.IgnoreCase);
     }
     
     public static bool ValidateArrayFormat(this string text)
     {
-        string pattern = @"\b\w+\s*\[\s*(?:,\s*)*\]";
+        const string pattern = @"\b\w+\s*\[\s*(?:,\s*)*\]";
         return Regex.IsMatch(text, pattern,RegexOptions.IgnoreCase);
     }
 
     public static bool ValidateDictionaryFormat(this string text)
     {
-        string pattern = @"\bDictionary\s*<[^<>]+>";
+        const string pattern = @"\bDictionary\s*<[^<>]+>";
         return Regex.IsMatch(text, pattern,RegexOptions.IgnoreCase);
     }
 
     public static bool ValidateNullableFormat(this string text)
     {
-        string pattern = @"^[A-Za-z]+\s*(?:<[^<>]+>)?\s*(?:\[\s*(?:,\s*)*\])?\?$";
-        return Regex.IsMatch(text, pattern,RegexOptions.IgnoreCase);
+        const string pattern = @"^[A-Za-z]+\s*(?:<[^<>]+>)?\s*(?:\[\s*(?:,\s*)*\])?\?$";
+        return Regex.IsMatch(text, pattern, RegexOptions.IgnoreCase) && FormatOptions.IncludeNullables;
+    }
+
+    public static bool ValidateDateFormat(this string text)
+    {
+        return text.Replace("?","") == "Date";
+    }
+    
+    public static bool ValidateOptionalFormat(this TypescriptToken token)
+    {
+        return token.IsNull && FormatOptions.IncludeOptionals;
     }
 }
