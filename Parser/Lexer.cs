@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using Formatter.Options;
 using TokenGenerator;
 
 namespace Parser;

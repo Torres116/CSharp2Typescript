@@ -12,18 +12,6 @@
 
         <div class="flex gap-2">
 
-            <button class="flex items-center hover:opacity-70 hover:bg-gray-100/10 p-[6px] rounded-lg"
-                    onclick="@CopyTextToClipboard">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="none"
-                     stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 
-                        2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z"/>
-                    <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2
-                        -2h10c.75 0 1.158 .385 1.5 1"/>
-                </svg>
-            </button>
-
             @if (!Config.IsReadOnly)
             {
                 <button class="flex items-center hover:opacity-70 hover:bg-gray-100/10 p-[6px] rounded-lg"
@@ -36,6 +24,18 @@
                     </svg>
                 </button>
             }
+
+            <button class="flex items-center hover:opacity-70 hover:bg-gray-100/10 p-[6px] rounded-lg"
+                    onclick="@CopyTextToClipboard">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="none"
+                     stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 
+                        2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z"/>
+                    <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2
+                        -2h10c.75 0 1.158 .385 1.5 1"/>
+                </svg>
+            </button>
 
         </div>
 
@@ -66,8 +66,8 @@
     </div>
 
     <div class="flex items-center p-4 border-t border-white/10 h-10 w-full bg-[#1a1a1a]">
-        <span class="text-xs text-white/40"> @($"{Text?.Split("\n").Length ?? 0} Lines" ) - 
-             @($"{Text?.Length ?? 0} characters")</span>
+        <span class="text-xs text-white/40"> @($"{Text?.Split("\n").Length ?? 0} Lines") -
+            @($"{Text?.Length ?? 0} characters")</span>
     </div>
 
 </div>

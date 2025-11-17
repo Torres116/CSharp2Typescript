@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using Formatter.Options;
+using Formatter.Configuration;
 
 namespace TokenGenerator.Validation;
 
@@ -29,7 +29,7 @@ public static class InputValidator
     public static bool ValidateNullableFormat(this string text)
     {
         const string pattern = @"^[A-Za-z]+\s*(?:<[^<>]+>)?\s*(?:\[\s*(?:,\s*)*\])?\?$";
-        return Regex.IsMatch(text, pattern, RegexOptions.IgnoreCase) && FormatOptions.IncludeNullables;
+        return Regex.IsMatch(text, pattern, RegexOptions.IgnoreCase) && FormatConfiguration.IncludeNullables;
     }
 
     public static bool ValidateDateFormat(this string text)
@@ -39,6 +39,6 @@ public static class InputValidator
     
     public static bool ValidateOptionalFormat(this TypescriptToken token)
     {
-        return token.IsNull && FormatOptions.IncludeOptionals;
+        return token.IsNull && FormatConfiguration.IncludeOptionals;
     }
 }

@@ -1,4 +1,4 @@
-namespace Formatter.Options.utils;
+namespace Formatter.Configuration.utils;
 
 public enum TypeDeclaration
 {

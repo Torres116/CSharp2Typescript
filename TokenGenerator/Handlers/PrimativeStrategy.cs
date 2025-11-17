@@ -1,6 +1,4 @@
-using TokenGenerator.interfaces;
-
-namespace TokenGenerator.Handlers.Type;
+namespace TokenGenerator.Handlers;
 
 public class PrimitiveTypeMapper
 {

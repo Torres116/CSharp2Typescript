@@ -1,4 +1,4 @@
-using Formatter.Options;
+using Formatter.Configuration;
 using TokenGenerator.interfaces;
 using TokenGenerator.Validation;
 
@@ -8,7 +8,7 @@ public class OptionalIdentifierHandler(ITokenGenerator generator) : ITokenHandle
 {
     public void Verify(TypescriptToken token)
     {
-        var result = FormatOptions.IncludeOptionals && token.ValidateOptionalFormat();
+        var result = FormatConfiguration.IncludeOptionals && token.ValidateOptionalFormat();
         token.IsOptional = result;
     }
 

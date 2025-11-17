@@ -1,7 +1,7 @@
 namespace Web.Components.buttons;
 
-public sealed class DropdownOption<T>(T value, int index)  
+public sealed class DropdownOption<T>(T value, int key)  
 {
     public T Value { get; } = value;
-    public int Index { get; } = index;
+    public int Key { get; } = key;
 }

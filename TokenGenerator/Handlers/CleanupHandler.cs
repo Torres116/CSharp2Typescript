@@ -1,4 +1,4 @@
-using Formatter.Options;
+using Formatter.Configuration;
 
 namespace TokenGenerator.Handlers;
 
@@ -8,7 +8,7 @@ public class CleanupHandler
     {
         token.Type = token.Type.Replace("?", "");
         
-        if (!FormatOptions.IncludeOptionals)
+        if (!FormatConfiguration.IncludeOptionals)
             token.Identifier = token.Identifier!.Replace("?","");
     }
 }

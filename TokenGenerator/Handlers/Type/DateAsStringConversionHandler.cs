@@ -1,4 +1,4 @@
-using Formatter.Options;
+using Formatter.Configuration;
 using TokenGenerator.interfaces;
 using TokenGenerator.Validation;
 
@@ -14,7 +14,7 @@ public class DateAsStringConversionHandler(ITokenGenerator generator) : ITokenHa
 
     public void Convert(TypescriptToken token)
     {
-        if (FormatOptions.DatesAsStrings && token.IsDate) 
+        if (FormatConfiguration.DatesAsStrings && token.IsDate) 
             token.Type = "string";
     }
 }

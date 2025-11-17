@@ -1,5 +1,5 @@
+using Formatter.Configuration;
 using Formatter.Formatter;
-using Formatter.Options;
 using TokenGenerator.Handlers;
 using TokenGenerator.Handlers.Identifier;
 using TokenGenerator.Handlers.Type;
@@ -51,7 +51,7 @@ public class TypescriptTokenGenerator : ITokenGenerator
         
         switch (token.IsComment)
         {
-            case true when FormatOptions.IncludeComments: return result;
+            case true when FormatConfiguration.IncludeComments: return result;
             case true: return null;
         }
 

@@ -1,7 +1,7 @@
 using System.Text;
+using Formatter.Configuration;
+using Formatter.Configuration.utils;
 using Formatter.Formatter.handlers;
-using Formatter.Options;
-using Formatter.Options.utils;
 
 namespace Formatter.Formatter;
 
@@ -11,7 +11,7 @@ public class TypescriptFormatter : IFormatter
 
     private static string GetTypeDeclaration()
     {
-        return FormatOptions.TypeDeclaration switch
+        return FormatConfiguration.TypeDeclaration switch
         {
             TypeDeclaration.Class => "class",
             TypeDeclaration.Interface => "export interface",
@@ -22,13 +22,13 @@ public class TypescriptFormatter : IFormatter
 
     private static string GetIdent()
     {
-        var ident = new string(' ', FormatOptions.IdentSize * FormatOptions.IdentLevel);
+        var ident = new string(' ', FormatConfiguration.IdentSize * FormatConfiguration.IdentLevel);
         return ident;
     }
 
     private static string GetTab()
     {
-        var tab = new string(' ', FormatOptions.TabSize);
+        var tab = new string(' ', FormatConfiguration.TabSize);
         return tab;
     }
 
@@ -46,18 +46,18 @@ public class TypescriptFormatter : IFormatter
 
     private static string FormatNamingConvention(string identifier)
     {
-        return FormatOptions.NamingConvention switch
+        return FormatConfiguration.NamingConvention switch
         {
-            NamingConvention.CamelCase => NamingConventionHandler.ToCamelCase(identifier),
+            NamingConvention.camelCase => NamingConventionHandler.ToCamelCase(identifier),
             NamingConvention.PascalCase => NamingConventionHandler.ToPascalCase(identifier),
-            NamingConvention.SnakeCase => NamingConventionHandler.ToSnakeCase(identifier),
+            NamingConvention.snake_case => NamingConventionHandler.ToSnakeCase(identifier),
             _ => identifier
         };
     }
 
     public void FormatLine(string identifier, string type)
     {
-        if (FormatOptions.TypeDeclaration != TypeDeclaration.Interface)
+        if (FormatConfiguration.TypeDeclaration != TypeDeclaration.Interface)
             return;
 
         if (string.IsNullOrWhiteSpace(identifier) || string.IsNullOrWhiteSpace(type))

@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using Parser
 @using Web.Components.Editor
-@using Web.Components.FormatOptions
+@using Web.Components.FormatConfiguration
 
 <PageTitle>C#2TS</PageTitle>
 
@@ -16,7 +16,7 @@
             @* Parsed  output *@
             <Editor @key="output" Config="@(new EditorConfig(true, "Typescript", tsIcon))" Text="@output"/>
 
-            <FormatOptionsContainer/>
+            <FormatConfigurationContainer/>
         </div>
 
         @* Parse Button *@

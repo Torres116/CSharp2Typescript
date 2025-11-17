@@ -56,7 +56,7 @@
     {
         if (OnValueChange.HasDelegate)
         {
-            currentIndex = option.Index;
+            currentIndex = option.Key;
             await OnValueChange.InvokeAsync(option);
             StateHasChanged();
         }
