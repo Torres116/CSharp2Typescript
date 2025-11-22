@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using TokenGenerator;
+using TokenGenerator.interfaces;
 
 namespace Parser;
 
@@ -11,7 +12,8 @@ internal sealed partial class Lexer
         "private",
         "protected",
         "internal",
-        "async"
+        "async",
+        "enum"
     ];
 
     readonly string[] _declarationKeywords =
@@ -42,7 +44,7 @@ internal sealed partial class Lexer
         NONE
     }
 
-    public List<Token> Tokenize(string input)
+    public List<IToken> Tokenize(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
             return [];
@@ -50,7 +52,7 @@ internal sealed partial class Lexer
         input = RemoveSpaceAfter().Replace(input, "<"); // remove spaces after '<'
         input = RemoveSpacesBefore().Replace(input, ">"); // remove spaces before '>'
 
-        var result = new List<Token>();
+        var result = new List<IToken>();
         var separators = new[] { "\n" };
         var formattedInput = input
             .Split(separators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
@@ -61,40 +63,42 @@ internal sealed partial class Lexer
 
         try
         {
-            var declaration = formattedInput[0].Split([" "], StringSplitOptions.RemoveEmptyEntries);
-            for (var index = 0; index < declaration.Length; index++)
-            {
-                var current = declaration[index].Replace("{", "").Replace("}", "").Replace("(", "").Replace(")", "");
-                var next = declaration[index + 1].Replace("{", "").Replace("}", "").Replace("(", "").Replace(")", "");
-
-                if (!_declarationKeywords.Contains(current.ToLower()))
-                    continue;
-
-                Token token = new()
-                {
-                    Type = current,
-                    Identifier = next,
-                    IsDeclaration = true
-                };
-
-                typeDeclaration = current switch
-                {
-                    "class" => TypeDeclaration.CLASS,
-                    "record" => TypeDeclaration.RECORD,
-                    _ => typeDeclaration
-                };
-
-                result.Add(token);
-                break;
-            }
-
-            if (typeDeclaration == TypeDeclaration.NONE)
-                return [];
-
-            foreach (var line in formattedInput[1..])
+            foreach (var line in formattedInput)
             {
                 var token = new Token();
                 var currentLine = GetCurrentLineArray(line, typeDeclaration);
+
+                for (var index = 0; index < currentLine.Length; index++)
+                {
+                    if (currentLine.Length - 1 <= index)
+                        break;
+
+                    var current = currentLine[index];
+                    var next = currentLine[index + 1];
+
+                    if (!_declarationKeywords.Contains(current.ToLower()))
+                        continue;
+
+                    token = new Token
+                    {
+                        Type = current,
+                        Identifier = next,
+                        IsDeclaration = true
+                    };
+
+                    typeDeclaration = current switch
+                    {
+                        "class" => TypeDeclaration.CLASS,
+                        "record" => TypeDeclaration.RECORD,
+                        _ => typeDeclaration
+                    };
+
+                    result.Add(token);
+                    break;
+                }
+
+                if (token.IsDeclaration)
+                    continue;
 
                 for (var j = 0; j < currentLine.Length; j++)
                 {
@@ -136,19 +140,10 @@ internal sealed partial class Lexer
     private string[] GetCurrentLineArray(string input, TypeDeclaration type)
     {
         input = RemoveSpacesAroundComma().Replace(input, ",");
-
-        return type switch
-        {
-            TypeDeclaration.CLASS => input.Split([" "], StringSplitOptions.RemoveEmptyEntries)
-                .Where(c => !ignoredKeywords.Contains(c))
-                .Select(c => c.Replace("{", "").Replace("}", ""))
-                .ToArray(),
-            TypeDeclaration.RECORD => input.Split([" "], StringSplitOptions.RemoveEmptyEntries)
-                .Where(c => !ignoredKeywords.Contains(c))
-                .Select(c => c.Replace("{", "").Replace("}", "").Replace("(", "").Replace(")", "").Replace(":", ""))
-                .ToArray(),
-            _ => []
-        };
+        return input.Split([" "], StringSplitOptions.RemoveEmptyEntries)
+            .Where(c => !ignoredKeywords.Contains(c))
+            .Select(c => c.Replace("{", "").Replace("}", "").Replace("(", "").Replace(")", "").Replace(":", ""))
+            .ToArray();
     }
 
     [GeneratedRegex(@"<\s*")]

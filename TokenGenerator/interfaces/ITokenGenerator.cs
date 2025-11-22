@@ -2,7 +2,7 @@ namespace TokenGenerator.interfaces;
 
 public interface ITokenGenerator
 {
-    TypescriptToken? InterpretToken(Token token);
-    TypescriptToken ConvertType(TypescriptToken token); 
-    TypescriptToken ConvertIdentifier(TypescriptToken token); 
+    IParsedToken? ConvertToken(IToken token);
+    IParsedToken ConvertType(IParsedToken token); 
+    IParsedToken ConvertIdentifier(IParsedToken token); 
 }   

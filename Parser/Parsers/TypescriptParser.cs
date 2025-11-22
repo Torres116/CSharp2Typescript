@@ -1,26 +1,38 @@
 using Formatter.Formatter;
 using Parser.Interfaces;
 using TokenGenerator;
+using TokenGenerator.interfaces;
 
 namespace Parser.Parsers;
 
 internal sealed class TypescriptParser : IParser
 {
-    public Task<string> Parse(List<Token> tokens)
+    private readonly TypescriptTokenGenerator _generator = new();
+    ConversionResult _conversionResult = new();
+
+    public ConversionResult Parse(List<IToken> rawTokens)
     {
-        var generator = new TypescriptTokenGenerator();
-        var tsTokens = tokens.Select(token => generator.InterpretToken(token)).Where(t => t != null).ToList();
-        var result = Build(tsTokens.Where(token => token != null).ToList()!);
-        return Task.FromResult(result);
+        _conversionResult.Output = Build(rawTokens);
+        return _conversionResult;
     }
 
-    string Build(List<TypescriptToken> tokens)
+    string Build(List<IToken> tokens)
     {
-        var ft = new TypescriptFormatter();
+        var parsed = new List<IParsedToken>();
+        foreach (var token in tokens)
+        {
+            var newToken = _generator.ConvertToken(token);
+            if (newToken != null)
+                parsed.Add(newToken);
+            else
+                // _conversionResult.Errors.Add($"Error parsing token: {token.Identifier}");
+                Console.WriteLine($"Error parsing token: {token.Identifier ?? "null"}");
+        }
 
-        ft.Format(tokens
+        var ft = new TypescriptFormatter();
+        ft.Format(parsed
             .Select(token => (token.Identifier, token.Type, token.IsComment, token.Comment, token.IsDeclaration,
-                token.IsCustomType,token.CustomTypes))
+                token.IsCustomType, token.CustomTypes))
             .ToList());
 
         return ft.GetResult();

@@ -61,7 +61,10 @@
                       autocomplete="off"
                       autocorrect="off"
                       readonly="@Config.IsReadOnly"
-                      onchange="@OnTextAreaChange">@Text</textarea>
+                      @bind="Text"
+                      @bind:event="oninput"
+                      onchange="@OnTextAreaChange"
+            ></textarea>
         }
     </div>
 
@@ -74,12 +77,17 @@
 
 <script>
 
-    function copyText(text) {
-        navigator.clipboard.writeText(text)
+    async function copyText(text) {
+        await navigator.clipboard.writeText(text)
     }
 
-    function pasteText() {
-        return navigator.clipboard.readText()
+    async function pasteText() {
+        try {
+            return await navigator.clipboard.readText();
+        } catch (e) {
+            console.error("Clipboard read failed", e);
+            return "";
+        }
     }
 
 </script>
@@ -93,15 +101,15 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!string.IsNullOrEmpty(Text))
-        {
             await JS.InvokeVoidAsync("highlightCodeBlocks");
-        }
     }
 
     private async Task OnTextAreaChange(ChangeEventArgs e)
     {
         if (!Config.IsReadOnly)
             await OnChange.InvokeAsync(e.Value?.ToString());
+
+        StateHasChanged();
     }
 
     private async Task CopyTextToClipboard()
@@ -112,9 +120,6 @@
     private async Task PasteTextToArea()
     {
         var result = await JS.InvokeAsync<string>("pasteText");
-        if (string.IsNullOrEmpty(result))
-            return;
-
         Text = result;
         await OnChange.InvokeAsync(result);
         StateHasChanged();

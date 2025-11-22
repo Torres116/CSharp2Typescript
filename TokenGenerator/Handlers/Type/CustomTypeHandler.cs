@@ -5,11 +5,11 @@ namespace TokenGenerator.Handlers.Type;
 
 internal sealed class CustomTypeHandler : ITokenHandler
 {
-    public void Verify(TypescriptToken token)
+    public void Verify(IParsedToken token)
     {
     }
 
-    public void Convert(TypescriptToken token)
+    public void Convert(IParsedToken token)
     {
         if (token.TokenCustomTypeSkip || token.IsDictionary)
             return;

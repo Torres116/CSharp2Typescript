@@ -18,9 +18,9 @@ public sealed class ParseService
         {
             var lexer = new Lexer();
             var parser = ParserFactory.GetParser(_config.parser);
-            var tokens = lexer.Tokenize(text);
-            var parsedResult = parser.Parse(tokens);
-            return parsedResult.Result;
+            var rawTokens = lexer.Tokenize(text);
+            var conversionResult = parser.Parse(rawTokens);
+            return conversionResult.Output;
         }
         catch (Exception e)
         {

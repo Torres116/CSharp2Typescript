@@ -48,12 +48,10 @@
 
     readonly ParseService _parseServiceService = new();
 
-    private void OnInputChange(string text)
+    private Task OnInputChange(string text)
     {
-        if (string.IsNullOrWhiteSpace(text))
-            return;
-
         input = text;
+        return Task.CompletedTask;
     }
 
     private void ConvertButtonClicked()

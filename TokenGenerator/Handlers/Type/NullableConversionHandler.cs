@@ -6,7 +6,7 @@ namespace TokenGenerator.Handlers.Type;
 
 internal sealed class NullableConversionHandler(ITokenGenerator generator) : ITokenHandler
 {
-    public void Verify(TypescriptToken token)
+    public void Verify(IParsedToken token)
     {
         if (token.Skip)
             return;
@@ -15,7 +15,7 @@ internal sealed class NullableConversionHandler(ITokenGenerator generator) : ITo
         token.IsNull = result;
     }
 
-    public void Convert(TypescriptToken token)
+    public void Convert(IParsedToken token)
     {
         if (!token.IsNull || !FormatConfiguration.IncludeNullables)
             return;

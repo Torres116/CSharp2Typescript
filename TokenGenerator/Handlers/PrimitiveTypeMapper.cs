@@ -1,3 +1,5 @@
+using TokenGenerator.interfaces;
+
 namespace TokenGenerator.Handlers;
 
 internal sealed class PrimitiveTypeMapper
@@ -24,7 +26,7 @@ internal sealed class PrimitiveTypeMapper
         // { "dictionary", "record" }
     };
 
-    public static void Convert(TypescriptToken token)
+    public static void Convert(IParsedToken token)
     {
         if (token.Type == null)
             return;

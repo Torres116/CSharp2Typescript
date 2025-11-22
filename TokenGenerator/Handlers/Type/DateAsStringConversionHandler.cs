@@ -6,13 +6,13 @@ namespace TokenGenerator.Handlers.Type;
 
 internal sealed class DateAsStringConversionHandler(ITokenGenerator generator) : ITokenHandler
 {
-    public void Verify(TypescriptToken token)
+    public void Verify(IParsedToken token)
     {
         var result = token.Type.ValidateDateFormat();
         token.IsDate = result;
     }
 
-    public void Convert(TypescriptToken token)
+    public void Convert(IParsedToken token)
     {
         if (FormatConfiguration.DatesAsStrings && token.IsDate) 
             token.Type = "string";

@@ -1,8 +1,6 @@
-using TokenGenerator.interfaces;
+namespace TokenGenerator.interfaces;
 
-namespace TokenGenerator;
-
-public class TypescriptToken : Token, IParsedToken
+public interface IParsedToken : IToken
 {
     public bool IsOptional { get; set; }
     public bool IsNull { get; set; }
@@ -12,5 +10,5 @@ public class TypescriptToken : Token, IParsedToken
     public bool Skip { get; set; }
     public bool TokenCustomTypeSkip { get; set; }
     public string[]? CustomTypes { get; set; }
-    public bool SkipDictionary { get; set; } = false;
+    public bool SkipDictionary { get; set; }
 }

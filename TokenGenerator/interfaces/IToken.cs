@@ -1,8 +1,6 @@
-using TokenGenerator.interfaces;
+namespace TokenGenerator.interfaces;
 
-namespace TokenGenerator;
-
-public class Token : IToken
+public interface IToken
 {
     public string? Identifier { get; set; }
     public string? Type { get; set; }

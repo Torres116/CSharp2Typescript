@@ -1,8 +1,9 @@
 using TokenGenerator;
+using TokenGenerator.interfaces;
 
 namespace Parser.Interfaces;
 
 internal interface IParser
 {
-    Task<string> Parse(List<Token> tokens);
+    ConversionResult Parse(List<IToken> rawTokens);
 }

@@ -12,8 +12,9 @@ public sealed class TypescriptFormatter : IFormatter
     private StringBuilder ImportsSb { get; } = new();
     private StringBuilder Result { get; } = new();
     private List<string>? CustomTypes;
+    private List<string> Ignored { get; } = new();
 
-    public void FormatLine(string identifier, string type)
+    private void FormatLine(string identifier, string type)
     {
         if (string.IsNullOrWhiteSpace(identifier) || string.IsNullOrWhiteSpace(type))
             return;
@@ -26,7 +27,7 @@ public sealed class TypescriptFormatter : IFormatter
         Sb.AppendLine();
     }
 
-    private static string GetTypeDeclaration()
+    private string GetTypeDeclaration()
     {
         return FormatConfiguration.TypeDeclaration switch
         {
@@ -39,6 +40,13 @@ public sealed class TypescriptFormatter : IFormatter
 
     private void FormatTypeDeclaration(string identifier)
     {
+        Ignored.Add(identifier);
+        if (Sb.Length > 0)
+        {
+            Sb.AppendLine("}");
+            Sb.AppendLine();
+        }
+
         AddExport();
         var declaration =
             FormatConfiguration.TypeDeclaration == TypeDeclaration.Type
@@ -153,10 +161,11 @@ public sealed class TypescriptFormatter : IFormatter
 
         CustomTypes ??= new();
 
+
         foreach (var type in types.Where(c => !CustomTypes.Contains(c)))
         {
             var str = $@"import type {type} from ""./{type}"";";
-            
+
             CustomTypes.Add(type);
             ImportsSb.AppendLine(str);
         }
@@ -182,6 +191,8 @@ public sealed class TypescriptFormatter : IFormatter
         List<(string? Identifier, string? Type, bool IsComment, string? Comment, bool IsDeclaration, bool IsCustomType,
             string[]? CustomTypes)> tokens)
     {
+        Ignored.AddRange(tokens.Where(c => c.IsDeclaration).Select(c => c.Identifier!));
+        
         foreach (var token in tokens)
         {
             if (token.IsComment)
@@ -209,5 +220,6 @@ public sealed class TypescriptFormatter : IFormatter
         ImportsSb.Clear();
         ConstructorSb.Clear();
         CustomTypes = null;
+        Ignored?.Clear();
     }
 }

@@ -37,7 +37,7 @@ public sealed class TypescriptTokenGenerator : ITokenGenerator
         };
     }
 
-    public TypescriptToken? InterpretToken(Token token)
+    public IParsedToken? ConvertToken(IToken token)
     {
         var result = new TypescriptToken
         {
@@ -46,9 +46,9 @@ public sealed class TypescriptTokenGenerator : ITokenGenerator
             IsComment = token.IsComment,
             Comment = token.Comment,
             IsDeclaration = token.IsDeclaration,
-            IsCustomType = token.IsCustomType 
+            IsCustomType = token.IsCustomType
         };
-        
+
         switch (token.IsComment)
         {
             case true when FormatConfiguration.IncludeComments: return result;
@@ -61,10 +61,10 @@ public sealed class TypescriptTokenGenerator : ITokenGenerator
         return result;
     }
 
-    public TypescriptToken ConvertType(TypescriptToken token)
+    public IParsedToken ConvertType(IParsedToken token)
     {
         PrimitiveTypeMapper.Convert(token);
-        
+
         foreach (var handler in _typeHandlers ?? [])
             handler.Verify(token);
 
@@ -74,10 +74,10 @@ public sealed class TypescriptTokenGenerator : ITokenGenerator
         return token;
     }
 
-    public TypescriptToken ConvertIdentifier(TypescriptToken token)
+    public IParsedToken ConvertIdentifier(IParsedToken token)
     {
         token.Identifier = token.Identifier.Trim();
-        
+
         foreach (var handler in _identifierHandlers ?? [])
             handler.Verify(token);
 
@@ -86,5 +86,4 @@ public sealed class TypescriptTokenGenerator : ITokenGenerator
 
         return token;
     }
-    
 }

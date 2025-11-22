@@ -5,13 +5,13 @@ namespace TokenGenerator.Handlers.Type;
 
 internal sealed class ListConversionHandler(ITokenGenerator generator) : ITokenHandler
 {
-    public void Verify(TypescriptToken token)
+    public void Verify(IParsedToken token)
     {
         var result = token.Type.ValidateArrayFormat() || token.Type.ValidateListFormat();
         token.IsArray = result;
     }
 
-    public void Convert(TypescriptToken token)
+    public void Convert(IParsedToken token)
     {
         if (!token.IsArray)
             return;

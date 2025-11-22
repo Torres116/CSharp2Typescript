@@ -5,13 +5,13 @@ namespace TokenGenerator.Handlers.Identifier;
 
 internal class OptionalIdentifierHandler(ITokenGenerator generator) : ITokenHandler
 {
-    public void Verify(TypescriptToken token)
+    public void Verify(IParsedToken token)
     {
         var result = token.IsNull;
         token.IsOptional = result;
     }
 
-    public void Convert(TypescriptToken token)
+    public void Convert(IParsedToken token)
     {
         if (!token.IsOptional || !FormatConfiguration.IncludeOptionals)
             return;
