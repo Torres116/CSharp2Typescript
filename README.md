@@ -8,7 +8,7 @@
 
 ## 🚀 Key Features
 
-- Transforms C# POCOs / data models into TypeScript interfaces or classes  
+- Transforms C# data models into TypeScript interfaces,types or classes  
 - Keeps property names and structure  
 - Useful for generating TypeScript types for API models  
 
