@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Exceptions\Exceptions.csproj" />
       <ProjectReference Include="..\Formatter\Formatter.csproj" />
       <ProjectReference Include="..\TokenGenerator\TokenGenerator.csproj" />
     </ItemGroup>

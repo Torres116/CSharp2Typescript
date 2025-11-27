@@ -16,4 +16,15 @@ public static class FormatConfiguration
     public static bool IncludeNullables { get; set; } = false;
     public static bool IncludeOptionals { get; set; } = true;
     public static bool IncludeImports { get; set; } = true;
+
+    public static void TurnEverythingOff()
+    {
+        GenerateConstructor = false;
+        AddTypeAnnotations = false;
+        DatesAsStrings = false;
+        IncludeComments = false;
+        IncludeNullables = false;
+        IncludeOptionals = false;
+        IncludeImports = false;
+    }
 }

@@ -12,5 +12,4 @@ public class TypescriptToken : Token, IParsedToken
     public bool Skip { get; set; }
     public bool TokenCustomTypeSkip { get; set; }
     public string[]? CustomTypes { get; set; }
-    public bool SkipDictionary { get; set; } = false;
 }

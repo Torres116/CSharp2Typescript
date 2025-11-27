@@ -7,6 +7,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser", "Parser\Parser.csproj", "{08616671-29A8-4AF8-B68E-86A1515D1EC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8C31EA5-1367-4D69-A7E1-1D6CF9754A11}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{C25E75D6-92D5-4217-9D35-3E1029CF1BD5}"
 EndProject
@@ -15,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenGenerator", "TokenGenerator\TokenGenerator.csproj", "{C6B6273C-23EF-4122-8CA5-E44B84AB4970}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{49368085-714F-4E1B-8BC6-4D1CC09F75A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Exceptions\Exceptions.csproj", "{81A8F038-E83A-452E-B014-1933223550AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +32,7 @@ Global
 		{12C06373-A98B-482C-ADAE-352B2267A713} = {2A56A070-D7C3-4C11-99A1-1C28C035ACE9}
 		{C6B6273C-23EF-4122-8CA5-E44B84AB4970} = {2A56A070-D7C3-4C11-99A1-1C28C035ACE9}
 		{49368085-714F-4E1B-8BC6-4D1CC09F75A4} = {F33CCB74-471C-4B63-AD36-2B9A5DEB37FC}
+		{81A8F038-E83A-452E-B014-1933223550AC} = {2A56A070-D7C3-4C11-99A1-1C28C035ACE9}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{08616671-29A8-4AF8-B68E-86A1515D1EC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -49,5 +55,9 @@ Global
 		{49368085-714F-4E1B-8BC6-4D1CC09F75A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49368085-714F-4E1B-8BC6-4D1CC09F75A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49368085-714F-4E1B-8BC6-4D1CC09F75A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81A8F038-E83A-452E-B014-1933223550AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81A8F038-E83A-452E-B014-1933223550AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81A8F038-E83A-452E-B014-1933223550AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81A8F038-E83A-452E-B014-1933223550AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

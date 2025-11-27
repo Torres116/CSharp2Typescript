@@ -47,12 +47,9 @@ internal sealed partial class DictionaryConversionHandler(ITokenGenerator genera
                 }
 
                 if (c == '<')
-                {
                     depth++;
-                    continue;
-                }
-
-                if (c == '>')
+                
+                else if (c == '>')
                     depth--;
             }
 

@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Exceptions
 @using Parser
 @using Web.Components.Editor
 @using Web.Components.FormatConfiguration
@@ -55,30 +56,25 @@
         return Task.CompletedTask;
     }
 
-    private void ConvertButtonClicked()
+    private async Task ConvertButtonClicked()
     {
-        ParseText();
+        await ParseText();
     }
 
     private async Task ParseText()
     {
-        var temp = input;
 
         try
         {
-            var errors = SyntaxHelper.GetSyntaxErrors(input);
-            if (errors.Count > 0)
-            {
-                output = errors.Aggregate("", (current, error) => current + error + "\n");
-                return;
-            }
-
             output = await _parseServiceService.ParseText(input, new Config());
             StateHasChanged();
         }
+        catch (SyntaxErrorException e)
+        {
+            // Show error modal
+        }
         catch (Exception e)
         {
-            input = temp;
             output = e.Message;
         }
         finally

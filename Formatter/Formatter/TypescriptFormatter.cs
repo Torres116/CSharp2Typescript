@@ -191,7 +191,7 @@ public sealed class TypescriptFormatter : IFormatter
     {
         AddImports();
         BuildMain();
-        return Result.ToString();
+        return Result.ToString().Trim();
     }
 
     public void Format(
