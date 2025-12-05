@@ -20,6 +20,5 @@ dist/
 .log
 
 .env
-/Web/serve.py
-/Web/publish/
-/Web/serve.exe
+/publish
+/serve.exe

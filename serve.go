@@ -6,8 +6,8 @@ import (
     "os/exec"
 )
 
-const publishDir = "./publish"
-const wwwrootDir = "./publish/wwwroot"
+const publishDir = "./bin"
+const wwwrootDir = "./bin/wwwroot"
 const basePath = "/CSharpTypescriptDTOConverter"
 
 func runCommand(name string,args ...string) error {
